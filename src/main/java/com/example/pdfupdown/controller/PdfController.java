@@ -1,6 +1,5 @@
 package com.example.pdfupdown.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
@@ -14,8 +13,8 @@ import java.io.IOException;
 @RequestMapping("/api/pdf")
 public class PdfController {
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+    // Use /tmp/uploads on Railway
+    private final String uploadDir = System.getProperty("java.io.tmpdir") + "/uploads";
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPdf(@RequestParam("file") MultipartFile file) throws IOException {
